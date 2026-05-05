@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Update Trainee</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label>First Name:</label><input type="text" name="first_name" value="{{ trainee.first_name }}" required><br>
+        <label>Last Name:</label><input type="text" name="last_name" value="{{ trainee.last_name }}" required><br>
+        <label>Email:</label><input type="email" name="email" value="{{ trainee.email }}" required><br>
+        <label>Course:</label>
+        <select name="course_id" required>
+            {% for course in courses %}
+                <option value="{{ course.id }}" {% if trainee.course.id == course.id %}selected{% endif %}>
+                    {{ course.name }}
+                </option>
+            {% endfor %}
+        </select><br><br>
+        <button type="submit">Update</button>
+    </form>
+{% endblock %}

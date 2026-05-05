@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Add Trainee</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label>First Name:</label><input type="text" name="first_name" required><br>
+        <label>Last Name:</label><input type="text" name="last_name" required><br>
+        <label>Email:</label><input type="email" name="email" required><br>
+        <label>Course:</label>
+        <select name="course_id" required>
+            {% for course in courses %}
+                <option value="{{ course.id }}">{{ course.name }}</option>
+            {% endfor %}
+        </select><br><br>
+        <button type="submit">Save</button>
+    </form>
+{% endblock %}

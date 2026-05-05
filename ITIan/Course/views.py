@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Course
+from django.contrib.auth.forms import UserCreationForm
 
 def courselist(request):
     courses = Course.objects.all()
@@ -26,3 +27,14 @@ def delete_course(request, id):
     course = get_object_or_404(Course, id=id)
     course.delete()
     return redirect('courselist')
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
