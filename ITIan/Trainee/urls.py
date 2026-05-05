@@ -8,5 +8,4 @@ urlpatterns = [
     path('delete/<int:id>/', views.delete_trainee, name='delete_trainee'),
 
     path('accounts/', include('django.contrib.auth.urls')), # Handles login/logout
-    path('register/', course_views.register, name='register'),
 ]
