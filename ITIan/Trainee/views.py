@@ -6,15 +6,17 @@ def traineelist(request):
     trainees = Trainee.objects.all()
     return render(request, 'trainee/list.html', {'trainees': trainees})
 
+def trainee_details(request, id):
+    trainee = get_object_or_404(Trainee, id=id)
+    return render(request, 'trainee/details.html', {'trainee': trainee})
+
 def add_trainee(request):
     courses = Course.objects.all()
     if request.method == 'POST':
-        f_name = request.POST.get('first_name')
+        f_name = request.POST.get('first_name') 
         l_name = request.POST.get('last_name')
         email = request.POST.get('email')
         c_id = request.POST.get('course_id')
-
-        print(f"Data received: {f_name}, {l_name}")
 
         Trainee.objects.create(
             first_name=f_name,
@@ -40,29 +42,4 @@ def update_trainee(request, id):
 def delete_trainee(request, id):
     trainee = get_object_or_404(Trainee, id=id)
     trainee.delete()
-    return redirect('traineelist')
-    
-def traineelist(request):
-    trainees = Trainee.objects.all()
-    return render(request, 'trainee/list.html', {'trainees': trainees})
-
-def trainee_details(request, id):
-    trainee = get_object_or_404(Trainee, id=id)
-    return render(request, 'trainee/details.html', {'trainee': trainee})
-
-def add_trainee(request):
-    courses = Course.objects.all()      
-    if request.method == 'POST':
-        Trainee.objects.create(
-            first_name=request.POST.get('f_name'),
-            last_name=request.POST.get('l_name'),
-            email=request.POST.get('email'),
-            course_id=request.POST.get('course_id')
-        )
-        return redirect('traineelist')
-    return render(request, 'trainee/add.html', {'courses': courses})
-
-def delete_trainee(request, id):
-    trainee = get_object_or_404(Trainee, id=id)
-    trainee.delete() 
     return redirect('traineelist')
