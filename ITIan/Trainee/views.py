@@ -34,3 +34,28 @@ def delete_trainee(request, id):
     trainee = get_object_or_404(Trainee, id=id)
     trainee.delete()
     return redirect('traineelist')
+    
+def traineelist(request):
+    trainees = Trainee.objects.all()
+    return render(request, 'trainee/list.html', {'trainees': trainees})
+
+def trainee_details(request, id):
+    trainee = get_object_or_404(Trainee, id=id)
+    return render(request, 'trainee/details.html', {'trainee': trainee})
+
+def add_trainee(request):
+    courses = Course.objects.all()      
+    if request.method == 'POST':
+        Trainee.objects.create(
+            first_name=request.POST.get('f_name'),
+            last_name=request.POST.get('l_name'),
+            email=request.POST.get('email'),
+            course_id=request.POST.get('course_id')
+        )
+        return redirect('traineelist')
+    return render(request, 'trainee/add.html', {'courses': courses})
+
+def delete_trainee(request, id):
+    trainee = get_object_or_404(Trainee, id=id)
+    trainee.delete() 
+    return redirect('traineelist')
