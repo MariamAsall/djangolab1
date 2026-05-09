@@ -5,8 +5,7 @@
         <tr>
             <th>Name</th>
             <th>Email</th>
-            <th>Course</th>
-            <th>Actions</th>
+            <th>Course</th> <th>Actions</th>
         </tr>
         {% for trainee in trainees %}
         <tr>
@@ -14,8 +13,15 @@
             <td>{{ trainee.email }}</td>
             <td>{{ trainee.course.name }}</td>
             <td>
+                <a href="{% url 'trainee_details' trainee.id %}">View</a> | 
+                
                 <a href="{% url 'update_trainee' trainee.id %}">Update</a> |
-                <a href="{% url 'delete_trainee' trainee.id %}">Delete</a>
+                
+                <a href="{% url 'delete_trainee' trainee.id %}" 
+                   style="color: red;"
+                   onclick="return confirm('Are you sure you want to delete this trainee permanently?')">
+                   Hard Delete
+                </a>
             </td>
         </tr>
         {% endfor %}
