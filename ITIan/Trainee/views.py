@@ -9,11 +9,18 @@ def traineelist(request):
 def add_trainee(request):
     courses = Course.objects.all()
     if request.method == 'POST':
+        f_name = request.POST.get('first_name')
+        l_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        c_id = request.POST.get('course_id')
+
+        print(f"Data received: {f_name}, {l_name}")
+
         Trainee.objects.create(
-            first_name=request.POST.get('first_name'),
-            last_name=request.POST.get('last_name'),
-            email=request.POST.get('email'),
-            course_id=request.POST.get('course_id') # Linking the foreign key
+            first_name=f_name,
+            last_name=l_name,
+            email=email,
+            course_id=c_id
         )
         return redirect('traineelist')
     return render(request, 'trainee/add.html', {'courses': courses})
