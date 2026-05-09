@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Trainee Details</h2>
+    <p><strong>First Name:</strong> {{ trainee.first_name }}</p>
+    <p><strong>Last Name:</strong> {{ trainee.last_name }}</p>
+    <p><strong>Email:</strong> {{ trainee.email }}</p>
+    <p><strong>Enrolled in Course:</strong> {{ trainee.course.name }}</p>
+    <a href="{% url 'traineelist' %}">Back to List</a>
+{% endblock %}
