@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Trainee
 from Course.models import Course
+from .forms import TraineeForm
 
 def traineelist(request):
     trainees = Trainee.objects.filter(is_deleted=False) 
