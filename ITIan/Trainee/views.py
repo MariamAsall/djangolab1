@@ -5,6 +5,8 @@ from .forms import TraineeForm
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
+
+
 def traineelist(request):
     trainees = Trainee.objects.filter(is_deleted=False) 
     return render(request, 'trainee/list.html', {'trainees': trainees})
@@ -77,3 +79,14 @@ class TraineeCreateView(CreateView):
     form_class = TraineeForm
     template_name = 'trainee/add_modelform.html'
     success_url = reverse_lazy('traineelist')
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login') # بعد التسجيل يروح لصفحة اللوجين
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
