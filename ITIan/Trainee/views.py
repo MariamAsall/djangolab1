@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Trainee
 from Course.models import Course
 from .forms import TraineeForm
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 
 def traineelist(request):
     trainees = Trainee.objects.filter(is_deleted=False) 
@@ -62,3 +64,16 @@ def soft_delete_trainee(request, id):
     trainee.save()
     return redirect('traineelist')
 
+class TraineeListView(ListView):
+    model = Trainee
+    template_name = 'trainee/list.html'
+    context_object_name = 'trainees'
+
+    def get_queryset(self):
+        return Trainee.objects.filter(is_deleted=False)
+    
+class TraineeCreateView(CreateView):
+    model = Trainee
+    form_class = TraineeForm
+    template_name = 'trainee/add_modelform.html'
+    success_url = reverse_lazy('traineelist')
