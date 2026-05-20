@@ -1,5 +1,9 @@
 from django.urls import path, include
 from . import views
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r'api', views.TraineeViewSet, basename='trainee-api')
 
 urlpatterns = [
     path('', views.traineelist, name='traineelist'),
@@ -11,4 +15,6 @@ urlpatterns = [
     path('update/<int:id>/', views.update_trainee, name='update_trainee'),
     path('delete/<int:id>/', views.delete_trainee, name='delete_trainee'),
     path('delete/soft/<int:id>/', views.soft_delete_trainee, name='soft_delete_trainee'),
+
+    path('', include(router.urls)),
 ]
