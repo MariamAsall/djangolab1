@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from .serializers import TraineeSerializer
+from .serializers import CourseSerializer
 
 def courselist(request):
     courses = Course.objects.all()
@@ -45,7 +45,7 @@ def register(request):
     return render(request, 'registration/register.html', {'form': form})
 
 class CourseViewSet(viewsets.ModelViewSet):
-    queryset = Course.objects.filter(is_deleted=False)
+    queryset = Course.objects.all()
     serializer_class = CourseSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
