@@ -2,6 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Course
 from django.contrib.auth.forms import UserCreationForm
 
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from .serializers import TraineeSerializer
+
 def courselist(request):
     courses = Course.objects.all()
     return render(request, 'course/list.html', {'courses': courses})
@@ -38,3 +43,9 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
+
+class TraineeViewSet(viewsets.ModelViewSet):
+    queryset = Trainee.objects.filter(is_deleted=False)
+    serializer_class = TraineeSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]

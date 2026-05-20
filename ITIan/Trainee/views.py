@@ -5,6 +5,10 @@ from .forms import TraineeForm
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from .serializers import TraineeSerializer
 
 def traineelist(request):
     trainees = Trainee.objects.filter(is_deleted=False) 
@@ -89,3 +93,10 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
+
+
+class TraineeViewSet(viewsets.ModelViewSet):
+    queryset = Trainee.objects.filter(is_deleted=False)
+    serializer_class = TraineeSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
