@@ -4,6 +4,7 @@ from Course.models import Course
 from .forms import TraineeForm
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.forms import UserCreationForm
 
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
