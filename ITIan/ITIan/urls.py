@@ -30,9 +30,7 @@ urlpatterns = [
     path('trainee/', include('Trainee.urls')),
     
     path('accounts/', include('django.contrib.auth.urls')), 
-    path('register/', course_views.register, name='register'),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('register/', views.register, name='register'),
+
 ]
 
 if settings.DEBUG:
