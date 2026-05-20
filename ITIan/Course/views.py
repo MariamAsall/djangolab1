@@ -44,8 +44,8 @@ def register(request):
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
 
-class TraineeViewSet(viewsets.ModelViewSet):
-    queryset = Trainee.objects.filter(is_deleted=False)
-    serializer_class = TraineeSerializer
+class CourseViewSet(viewsets.ModelViewSet):
+    queryset = Course.objects.filter(is_deleted=False)
+    serializer_class = CourseSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
